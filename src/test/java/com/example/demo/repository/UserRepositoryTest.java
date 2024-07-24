@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest(showSql = true)
 @TestPropertySource("classpath:test-application.properties")
+@Sql(scripts = {"/sql/user-repository-test-data.sql"})
 public class UserRepositoryTest {
 
     @Autowired
@@ -40,16 +42,16 @@ public class UserRepositoryTest {
     @Test
     void findByIdAndStatu_로_유저_데이터를_찾아올_수_있다() {
         // given
-        UserEntity userEntity = new UserEntity();
+        /*UserEntity userEntity = new UserEntity();
         userEntity.setId(1L);
         userEntity.setEmail("buea@486@gmail.com");
         userEntity.setAddress("Seoul");
         userEntity.setNickname("june67");
         userEntity.setStatus(UserStatus.ACTIVE);
-        userEntity.setCertificationCode("aaaaaa-aa-aaaaa-aaaaa-aaaaaa");
+        userEntity.setCertificationCode("aaaaaa-aa-aaaaa-aaaaa-aaaaaa");*/
 
         // when
-        userRepository.save(userEntity);
+//        userRepository.save(userEntity);
         Optional<UserEntity> result = userRepository.findByIdAndStatus(1, UserStatus.ACTIVE);
 
         // then
