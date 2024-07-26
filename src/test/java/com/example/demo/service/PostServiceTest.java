@@ -1,8 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.model.dto.PostCreateDto;
-import com.example.demo.model.dto.PostUpdateDto;
-import com.example.demo.repository.PostEntity;
+import com.example.demo.post.domain.PostCreate;
+import com.example.demo.post.domain.PostUpdate;
+import com.example.demo.post.infrastructure.PostEntity;
+import com.example.demo.post.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,7 +37,7 @@ public class PostServiceTest {
     @Test
     void post_를_이용해_게시물을_생성할_수_도_있다() {
         // given
-        PostCreateDto postEntity = PostCreateDto.builder()
+        PostCreate postEntity = PostCreate.builder()
                 .writerId(1)
                 .content("testpost")
                 .build();
@@ -51,7 +52,7 @@ public class PostServiceTest {
     @Test
     void post_를_이용해_게시물을_수정할_수_도_있다() {
         // given
-        PostUpdateDto postUpdateEntity = PostUpdateDto.builder()
+        PostUpdate postUpdateEntity = PostUpdate.builder()
                 .content("helloworld!")
                 .build();
         // when
