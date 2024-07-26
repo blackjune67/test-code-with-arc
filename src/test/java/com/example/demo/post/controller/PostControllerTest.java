@@ -1,7 +1,7 @@
 package com.example.demo.post.controller;
 
 import com.example.demo.post.domain.PostUpdate;
-import com.example.demo.post.infrastructure.PostRepository;
+import com.example.demo.post.infrastructure.PostJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class PostControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private PostRepository postRepository;
+    private PostJpaRepository postJpaRepository;
 
     @Test
     void postId로_단_건_게시물을_갖고_올_수_있다() throws Exception {
