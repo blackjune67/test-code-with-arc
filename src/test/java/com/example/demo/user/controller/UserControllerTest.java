@@ -1,7 +1,7 @@
 package com.example.demo.user.controller;
 
 import com.example.demo.user.domain.UserStatus;
-import com.example.demo.user.domain.UserUpdate;
+import com.example.demo.user.domain.UserUpdateDto;
 import com.example.demo.user.infrastructure.UserEntity;
 import com.example.demo.user.infrastructure.UserJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -92,7 +92,7 @@ public class UserControllerTest {
     @Test
     void 사용자는_내_정보를_수정할_있다() throws Exception {
         // given
-        UserUpdate userUpdate = UserUpdate.builder()
+        UserUpdateDto userUpdateDto = UserUpdateDto.builder()
                 .nickname("june664")
                 .address("Hanam")
                 .build();
@@ -102,7 +102,7 @@ public class UserControllerTest {
         mockMvc.perform(put("/api/users/me")
                         .header("EMAIL", "buea486@gmail.com")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(userUpdate)))
+                        .content(objectMapper.writeValueAsString(userUpdateDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.email").value("buea486@gmail.com"))

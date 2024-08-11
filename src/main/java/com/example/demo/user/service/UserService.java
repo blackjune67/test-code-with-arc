@@ -1,19 +1,14 @@
 package com.example.demo.user.service;
 
-import com.example.demo.common.domain.exception.CertificationCodeNotMatchedException;
 import com.example.demo.common.domain.exception.ResourceNotFoundException;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.domain.UserStatus;
-import com.example.demo.user.domain.UserUpdate;
-import com.example.demo.user.infrastructure.UserEntity;
+import com.example.demo.user.domain.UserUpdateDto;
 import com.example.demo.user.service.port.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Clock;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -41,9 +36,9 @@ public class UserService {
     }
 
     @Transactional
-    public User update(long id, UserUpdate userUpdate) {
+    public User update(long id, UserUpdateDto userUpdateDto) {
         User user = getById(id);
-        user.update(userUpdate);
+        user = user.update(userUpdateDto);
         user = userRepository.save(user);
         return user;
     }

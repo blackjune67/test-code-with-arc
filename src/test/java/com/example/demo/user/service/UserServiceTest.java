@@ -5,8 +5,7 @@ import com.example.demo.common.domain.exception.ResourceNotFoundException;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.domain.UserStatus;
-import com.example.demo.user.domain.UserUpdate;
-import com.example.demo.user.infrastructure.UserEntity;
+import com.example.demo.user.domain.UserUpdateDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,14 +93,14 @@ public class UserServiceTest {
     @Test
     void userUpdateDto_를_이용해_유저를_수정할_수_도_있다() {
         // given
-        UserUpdate userUpdate = UserUpdate.builder()
+        UserUpdateDto userUpdateDto = UserUpdateDto.builder()
                 .nickname("haha1")
                 .address("Inchoen")
                 .build();
 
-        BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
+//        BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
         // when
-        userService.update(1, userUpdate);
+        userService.update(1, userUpdateDto);
         // then
         User result = userService.getById(1);
         assertThat(result.getId()).isNotNull();
@@ -126,7 +125,7 @@ public class UserServiceTest {
         // when
         userService.verifyEmail(1, "aaaaaa-aa-aaaaa-aaaaa-aaaaaa");
         // then
-        User result = userService.getById(2);
+        User result = userService.getById(1);
         assertThat(result.getStatus()).isEqualTo(UserStatus.ACTIVE);
     }
 
@@ -136,7 +135,7 @@ public class UserServiceTest {
         // when
         // then
         assertThatThrownBy(() -> {
-            userService.verifyEmail(1, "aaaaaa-aa-aaaaa-aaaaa-aaaaaa11");
+            userService.verifyEmail(2, "aaaaaa-aa-aaaaa-aaaaa-aaaaaaCC");
         }).isInstanceOf(CertificationCodeNotMatchedException.class);
     }
 }

@@ -1,10 +1,6 @@
 package com.example.demo.user.domain;
 
 import com.example.demo.common.domain.exception.CertificationCodeNotMatchedException;
-import com.example.demo.common.domain.exception.ResourceNotFoundException;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -42,12 +38,12 @@ public class User {
                 .build();
     }
 
-    public User update(UserUpdate userUpdate) {
+    public User update(UserUpdateDto userUpdateDto) {
         return User.builder()
                 .id(id)
                 .email(email)
-                .nickname(userUpdate.getNickname())
-                .address(userUpdate.getAddress())
+                .nickname(userUpdateDto.getNickname())
+                .address(userUpdateDto.getAddress())
                 .certificationCode(certificationCode)
                 .status(status)
                 .lastLoginAt(lastLoginAt)
@@ -67,7 +63,7 @@ public class User {
     }
 
     public User certificate(String certificationCode) {
-        if (!certificationCode.equals(certificationCode)) {
+        if (!this.certificationCode.equals(certificationCode)) {
             throw new CertificationCodeNotMatchedException();
         }
         return User.builder()
